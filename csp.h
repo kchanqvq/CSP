@@ -5,8 +5,8 @@ E-mail: hongqiantan@pku.edu.cn
 
 LONG LIVE REMILIA SCARLET!
 
-PLAN: STEP 1: Implement interpretrr A which supports F-function operations
-STEP 2: Implement interpretrr B on A which supports the 9 LISP primitives
+PLAN: STEP 1: Implement interpreter A which supports F-function operations
+STEP 2: Implement interpreter B on A which supports the 9 LISP primitives
 CURRENT PROGRESS:
 
 Interpreter A almost done.
@@ -14,7 +14,10 @@ Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL
 TODO: ASSOC EVLIS EVCON
 
 Interpreter B (The main eval recursion)
-Supports atom quote
+Supports atom quote eq car cdr cons
+
+This code repo is released under AGPL v2.0.
+If you do not want to use the code under AGPL please email me.
 *****************************************/
 
 #define _E(...) __VA_ARGS__
@@ -189,10 +192,17 @@ Supports atom quote
         (ATOM SAFE_CAR e \
          COND(($eq(SAFE_CAR e (quote))EVAL_e(SAFE_CAR SAFE_CDR e))  \
               ($eq(SAFE_CAR e (atom)) (EVAL_e ATOM DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
+              ($eq(SAFE_CAR e (eq)) (EVAL_e $eq( DELAY_INT_25($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a) DELAY_INT_25($zipped_eval_R)() (SAFE_CAR SAFE_CDR SAFE_CDR e,a)))) \
+              ($eq(SAFE_CAR e (car)) (EVAL_e SAFE_CAR DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
+              ($eq(SAFE_CAR e (cdr)) (EVAL_e SAFE_CDR DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
+              ($eq(SAFE_CAR e (cons)) (EVAL_e CONS DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a) DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR SAFE_CDR e,a))) \
                  )                                      \
                 )                                       \
         )
 #define $eval_E(...) __VA_ARGS__
+//Here is the tests
 $eval_E($eval_E($eval_E($zipped_eval(((atom)((quote)(a))),()))))
+$eval_E($eval_E($eval_E($eval_E($zipped_eval(((eq)((quote)(car))((quote)(car))),())))))
+$eval_E($eval_E($eval_E($eval_E($eval_E($eval_E($zipped_eval(((cons)((quote)(a))((quote)((a)(b)))),())))))))
 
         $zipped_eval(((b)(c)),(a))
