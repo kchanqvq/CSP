@@ -10,11 +10,11 @@ STEP 2: Implement interpreter B on A which supports the 9 LISP primitives
 CURRENT PROGRESS:
 
 Interpreter A almost done.
-Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL AND NOT
-TODO: ASSOC EVLIS EVCON
+Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL AND NOT ASSOC EVCON
+TODO: EVCON
 
 Interpreter B (The main eval recursion)
-Supports atom quote eq car cdr cons
+Supports atom quote eq car cdr cons assoc
 
 This code repo is released under AGPL v2.0.
 If you do not want to use the code under AGPL please email me.
@@ -186,9 +186,10 @@ If you do not want to use the code under AGPL please email me.
 #define EQlambdalambda )EQ_T(
 #define EQlabellabel )EQ_T(
 #define EQquotequote )EQ_T(
+
 #define $zipped_eval_R() $zipped_eval
 #define $zipped_eval(e,a) COND(\
-        (ATOM e (Unimplemented))\
+        (ATOM e $assoc(e,a))   \
         (ATOM SAFE_CAR e \
          COND(($eq(SAFE_CAR e (quote))EVAL_e(SAFE_CAR SAFE_CDR e))  \
               ($eq(SAFE_CAR e (atom)) (EVAL_e ATOM DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
@@ -198,8 +199,12 @@ If you do not want to use the code under AGPL please email me.
               ($eq(SAFE_CAR e (cons)) (EVAL_e CONS DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a) DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR SAFE_CDR e,a))) \
                  )                                      \
                 )                                       \
-        ($eq(SAFE_CAR SAFE_CAR e (label)) DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a)) \
-        )
+        )/*
+        ($eq(SAFE_CAR SAFE_CAR e (label)) (EVAL_e DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a))) \
+($eq(SAFE_CAR SAFE_CAR e (lambda))(EVAL_e DELAY_INT_23($zipped_eval_R)()(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))),
+        EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
+        ))                                      \
+        )*/
 #define $eval_E(...) __VA_ARGS__
 #define $eval_expand5(...) $eval_E($eval_E($eval_E(__VA_ARGS__)))
 #define $eval_expand4(...) $eval_expand5($eval_expand5($eval_expand5(__VA_ARGS__)))
@@ -208,7 +213,47 @@ If you do not want to use the code under AGPL please email me.
 #define $eval_expand(...) $eval_expand2($eval_expand2($eval_expand2(__VA_ARGS__)))
 #define $zeval(x,y) $eval_expand($zipped_eval(x,y))
 //Here is the tests
-$zeval(((atom)((quote)(a))),())
-$zeval(((eq)((quote)(car))((quote)(car))),())
-$zeval(((eq)((quote)(car))((quote)(carf))),())
+#define $zipped_evlis_R() $zipped_evlis
+#define EVLIS_e_R() EVLIS_e
+#define EVLIS_e(x) x
+//#define $zipped_evlis(e,a) EVLIS_e COND ((NULL e ())((T) ($zipped_eval(SAFE_CAR  e,a)  DELAY_INT_12($zipped_evlis_R)()(SAFE_CDR e,a))))
+//#define $zipped_evlis(e,a) COND ((NULL e())((T) (T)))
+//#define $evlis_E(...) __VA_ARGS__
+//$eval_expand($zipped_evlis((((quote)(a))((quote)(a))((quote)(a))((quote)(a))((quote)(b))((quote)(c))), ()))
+#define _EVLIS_ZIP(...) _n() (__VA_ARGS__,_BE
+#define _BE(...) __VA_ARGS__)
+#define _EVLIS_R() _EVLIS
+#define _EVLIS_E(...) __VA_ARGS__
+#define _EVLIS_N(...)
+#define _EVLIS_B _EVLIS_E (_EVLIS_N,_EVLIS_E(_EVLIS_N,_EVLIS_N))
+#define ___EVLIS(a,b,k,...) k($zipped_eval((b),(a)) DELAY_INT_2(_EVLIS_R)()(a))
+#define __EVLIS(a,b,...) ___EVLIS(a,b,__VA_ARGS__ _EVLIS_E)
+
+#define _EVLIS(x) __EVLIS _EVLIS_ZIP(x)
+#define $zipped_evlis(x,y) $eval_expand(_EVLIS y x (_EVLIS_B))
+//$eval_E($eval_E($eval_E($eval_E($eval_E(_EVLIS (a)(b)(c)(_EVLIS_B))))))
+//$zipped_evlis(((quote)(x))((quote)(y))((quote)(z)),())
+//$zipped_evlis((), ())
+/*
+$zeval(((atom)((quote)(a))),(a))
+$zeval(((eq)((quote)(car))((quote)(car))),(a))
+$zeval(((eq)((quote)(car))((quote)(carf))),(a))
 $zeval(((cons)((quote)(a))((quote)((a)(b)))),())
+*/
+        //        $zeval(((lambda)((x))((cons)(x)((quote)((b))))((quote)(a))),())
+        #define test_e (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w)))
+#define test_a ()
+// EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(a)))))
+        //$zipped_evlis((_e _e CDR (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(a)))),())
+//$zipped_evlis(EVAL_e(_e EVAL_e(CDR e)), a)
+/*
+EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))),
+EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
+
+APPEND((x)(w))((a))
+*/
+#define _$assoc_R() _$assoc
+#define _$assoc(e,a) COND(($eq(e EVAL_e(SAFE_CAR SAFE_CAR a))(EVAL_e EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR a))))((T)(EVAL_e DELAY_INT_12(_$assoc_R)()(e,SAFE_CDR a))))
+#define $assoc(e,a) $eval_expand(_$assoc(e,a))
+$zeval((cdr),(((car)(test1))((cdr)(test2))))
+        //$assoc((cdr),(((car)(fuck))((cdr)(dfuck))))
