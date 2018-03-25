@@ -198,11 +198,17 @@ If you do not want to use the code under AGPL please email me.
               ($eq(SAFE_CAR e (cons)) (EVAL_e CONS DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a) DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR SAFE_CDR e,a))) \
                  )                                      \
                 )                                       \
+        ($eq(SAFE_CAR SAFE_CAR e (label)) DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a)) \
         )
 #define $eval_E(...) __VA_ARGS__
+#define $eval_expand5(...) $eval_E($eval_E($eval_E(__VA_ARGS__)))
+#define $eval_expand4(...) $eval_expand5($eval_expand5($eval_expand5(__VA_ARGS__)))
+#define $eval_expand3(...) $eval_expand4($eval_expand4($eval_expand4(__VA_ARGS__)))
+#define $eval_expand2(...) $eval_expand3($eval_expand3($eval_expand3(__VA_ARGS__)))
+#define $eval_expand(...) $eval_expand2($eval_expand2($eval_expand2(__VA_ARGS__)))
+#define $zeval(x,y) $eval_expand($zipped_eval(x,y))
 //Here is the tests
-$eval_E($eval_E($eval_E($zipped_eval(((atom)((quote)(a))),()))))
-$eval_E($eval_E($eval_E($eval_E($zipped_eval(((eq)((quote)(car))((quote)(car))),())))))
-$eval_E($eval_E($eval_E($eval_E($eval_E($eval_E($zipped_eval(((cons)((quote)(a))((quote)((a)(b)))),())))))))
-
-        $zipped_eval(((b)(c)),(a))
+$zeval(((atom)((quote)(a))),())
+$zeval(((eq)((quote)(car))((quote)(car))),())
+$zeval(((eq)((quote)(car))((quote)(carf))),())
+$zeval(((cons)((quote)(a))((quote)((a)(b)))),())
