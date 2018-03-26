@@ -20,7 +20,7 @@ You can execute a LISP expression using $zeval.
 ```C
 //$zeval(expression,environment)
 $zeval(( (atom) ((quote) (x)) ),())//Expands to (T)
-$zeval(( (cons) (a) ((quote) ((a) (b)))),())//Expands to ((a) (a) (b))
+$zeval(( (cons) ((quote)(a)) ((quote) ((a) (b)))),())//Expands to ((a) (a) (b))
 ```
 Enjoy yourself!
 ## Current Progress
