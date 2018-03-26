@@ -204,11 +204,9 @@ If you do not want to use the code under AGPL please email me.
                  )                                      \
                 )                                       \
         ($eq(SAFE_CAR SAFE_CAR e (label)) (EVAL_e DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a))) \
-        )/*
-($eq(SAFE_CAR SAFE_CAR e (lambda))(EVAL_e DELAY_INT_23($zipped_eval_R)()(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))),
-        EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
-        ))                                      \
-        )*/
+        ($eq(SAFE_CAR SAFE_CAR e (lambda))(EVAL_e DELAY_INT_23($zipped_eval_R)()(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND DELAY_INT_13($pair_R)()(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))(DELAY_INT_21($zipped_evlis_R)()(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)))) \
+)
+#define $pair_R() $pair
 #define $eval_E(...) __VA_ARGS__
 #define $eval_expand5(...) $eval_E($eval_E($eval_E(__VA_ARGS__)))
 #define $eval_expand4(...) $eval_expand5($eval_expand5($eval_expand5(__VA_ARGS__)))
@@ -231,6 +229,30 @@ If you do not want to use the code under AGPL please email me.
 
 #define _EVLIS(x) __EVLIS _EVLIS_ZIP(x)
 #define $zipped_evlis(x,y) $eval_expand(_EVLIS y x (_EVLIS_B))
+#define ASSOC_e_R() EVLIS_e
+#define ASSOC_e(x) x
+#define _ASSOC_ZIP(...) _n() (__VA_ARGS__,_ASSOC_BE
+#define _ASSOC_BE(...) __VA_ARGS__,_E)
+#define _ASSOC_R() _ASSOC
+#define _ASSOC_E(...) __VA_ARGS__
+#define _ASSOC_N(...)
+#define _ASSOC_B _ASSOC_E (_ASSOC_N,_ASSOC_E(_ASSOC_N,_ASSOC_N))
+#define _ASSOC_n(...) _n
+#define ASSOC_eatn_n
+#define ASSOC_eatn_n_sig(x,y) DELAY_REF(_ASSOC_R)() x
+#define T_sig(x,y) y ODESTROY
+#define __ASSOC(x,y,k,...) k(CAT _n()(ASSOC_eatn,CAT _n()(_ASSOC_n _n()(CAT(EQ,CAT(x ,_e y))),_sig))((x),EVAL_e(SAFE_CAR SAFE_CDR(y))))
+#define _ASSOC(x) __ASSOC _ASSOC_ZIP (x)
+                //                EVAL_e(_ASSOC(car)((car)(fuck)))
+#define _ASSOC_EVAL_E(...) __VA_ARGS__
+#define _ASSOC_EVAL_5(...) _ASSOC_EVAL_E(_ASSOC_EVAL_E(_ASSOC_EVAL_E(__VA_ARGS__)))
+#define _ASSOC_EVAL_4(...) _ASSOC_EVAL_5(_ASSOC_EVAL_5(_ASSOC_EVAL_5(__VA_ARGS__)))
+#define _ASSOC_EVAL_3(...) _ASSOC_EVAL_4(_ASSOC_EVAL_4(_ASSOC_EVAL_4(__VA_ARGS__)))
+#define _ASSOC_EVAL_2(...) _ASSOC_EVAL_3(_ASSOC_EVAL_3(_ASSOC_EVAL_3(__VA_ARGS__)))
+#define _ASSOC_EVAL(...) _ASSOC_EVAL_2(_ASSOC_EVAL_2(_ASSOC_EVAL_2(__VA_ARGS__)))
+#define _$zipped_assoc(e,a) _ASSOC_EVAL(_ASSOC e  a (_ASSOC_B))
+#define $zipped_assoc(e,a) _$zipped_assoc(EAT_NOT_ATOM(e), a)
+
 //$eval_E($eval_E($eval_E($eval_E($eval_E(_EVLIS (a)(b)(c)(_EVLIS_B))))))
 //$zipped_evlis(((quote)(x))((quote)(y))((quote)(z)),())
 //$zipped_evlis((), ())
@@ -261,35 +283,28 @@ APPEND((x)(w))((a))
 //$zeval((cdr),(((car)(test1))((cdr)(test2))))
         //$assoc((cdr),(((car)(fuck))((cdr)(dfuck))))
         //EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e))))
-        //$zeval((((quote)(cons))((quote)(x))((quote)((b))) ),())
-        $zeval(((cons)((quote)(a))((quote)((b)))),())
-        //EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
+        //$zeval(test_e,test_a)
+#define EQxx )EQ_T(
+        //$zipped_assoc((x), (x)(x))
+                //$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
+                //EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
+                //($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)
+#define _ENA_e(x) ODESTROY x
+#define ENA_ODESTROY
+#define ENA_ODESTROYY
+#define EAT_NOT_ATOM(x) (CAT(ENA_,_ENA_e x))
+        //$zeval(((cons)((quote)(x))((quote)((b))) ),())
+        //$zeval(((cons)((quote)(a))((quote)((b)))),())
+                   //$zipped_evlis((), ())
+                   //$zeval(test_e,test_a)
+                   //$zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)
+                   $eval_E($zipped_eval(test_e, test_a))
+                   //$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
+                   /*$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
+        $zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))*/
         //      EVAL_e(_e EVAL_e(CDR test_e))
                 //$zeval(((cons)(x)((quote)((w)))), ())
                  //$eq(SAFE_CAR SAFE_CAR ((cons)(x)((quote)((w)))) (lambda))
                //       $zeval((car),(((car)(fuck))))
         //$zipped_evlis(((quote)(w)), ())
         //$zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)),test_a)
-#define ASSOC_e_R() EVLIS_e
-#define ASSOC_e(x) x
-#define _ASSOC_ZIP(...) _n() (__VA_ARGS__,_ASSOC_BE
-#define _ASSOC_BE(...) __VA_ARGS__,_E)
-#define _ASSOC_R() _ASSOC
-#define _ASSOC_E(...) __VA_ARGS__
-#define _ASSOC_N(...)
-#define _ASSOC_B _ASSOC_E (_ASSOC_N,_ASSOC_E(_ASSOC_N,_ASSOC_N))
-#define _ASSOC_n(...) _n
-#define ASSOC_eatn_n
-#define ASSOC_eatn_n_sig(x,y) DELAY_REF(_ASSOC_R)() x
-#define T_sig(x,y) y ODESTROY
-#define __ASSOC(x,y,k,...) k(CAT _n()(ASSOC_eatn,CAT _n()(_ASSOC_n _n()(CAT(EQ,CAT(x ,_e y))),_sig))((x),EVAL_e(SAFE_CAR SAFE_CDR(y))))
-#define _ASSOC(x) __ASSOC _ASSOC_ZIP (x)
-                //                EVAL_e(_ASSOC(car)((car)(fuck)))
-#define _ASSOC_EVAL_E(...) __VA_ARGS__
-#define _ASSOC_EVAL_5(...) _ASSOC_EVAL_E(_ASSOC_EVAL_E(_ASSOC_EVAL_E(__VA_ARGS__)))
-#define _ASSOC_EVAL_4(...) _ASSOC_EVAL_5(_ASSOC_EVAL_5(_ASSOC_EVAL_5(__VA_ARGS__)))
-#define _ASSOC_EVAL_3(...) _ASSOC_EVAL_4(_ASSOC_EVAL_4(_ASSOC_EVAL_4(__VA_ARGS__)))
-#define _ASSOC_EVAL_2(...) _ASSOC_EVAL_3(_ASSOC_EVAL_3(_ASSOC_EVAL_3(__VA_ARGS__)))
-#define _ASSOC_EVAL(...) _ASSOC_EVAL_2(_ASSOC_EVAL_2(_ASSOC_EVAL_2(__VA_ARGS__)))
-#define _$zipped_assoc(e,a) _ASSOC_EVAL(_ASSOC e  a (_ASSOC_B))
-#define $zipped_assoc(e,a) _$zipped_assoc(e,EVAL_e a)
