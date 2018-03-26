@@ -14,7 +14,7 @@ Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL
 TODO: EVCON
 
 Interpreter B (The main eval recursion)
-Supports atom quote eq car cdr cons assoc
+Supports atom quote eq car cdr cons assoc lambda
 
 This code repo is released under AGPL v2.0.
 If you do not want to use the code under AGPL please email me.

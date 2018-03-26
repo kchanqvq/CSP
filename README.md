@@ -21,6 +21,7 @@ You can execute a LISP expression using $zeval.
 //$zeval(expression,environment)
 $zeval(( (atom) ((quote) (x)) ),())//Expands to (T)
 $zeval(( (cons) ((quote)(a)) ((quote) ((a) (b)))),())//Expands to ((a) (a) (b))
+$zeval((((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w))),())//Expands to ((w)(b))
 ```
 Enjoy yourself!
 ## Current Progress
@@ -29,7 +30,9 @@ Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL
 TODO: EVCON
 
 - Interpreter B (The main eval recursion)
-Supports atom quote eq car cdr cons
+Supports atom quote eq car cdr cons lambda
+
+IT SUPPORTS LAMBDA!
 ## Note
 It is proved that being SAFE is very important for primitive macros using in CSP.
 Since there seems to be no way to implement short-circuit condition on C preprocessor, any primitive macro should not cause error or break the bracket balance when accepting illegal list. Otherwise, it will spoil the main eval condition and cause fail of the whole process.
