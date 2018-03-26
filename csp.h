@@ -327,4 +327,4 @@ APPEND((x)(w))((a))
 #define EQcc )EQ_T(
 #define test_e (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w)))
 #define test_a ()
-                   $eval_expand($zipped_eval((( (lambda) ((f)) ((f) ((quote) ((b) (c)))))((quote) ( (lambda) ((x)) ((cons) ((quote)(a)) (x))))),()))
+                   $zeval((( (lambda) ((f)) ((f) ((quote) ((b) (c)))))((quote) ( (lambda) ((x)) ((cons) ((quote)(a)) (x))))),())
