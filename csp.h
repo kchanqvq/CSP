@@ -28,7 +28,6 @@ If you do not want to use the code under AGPL please email me.
 #define CAT(x,y) _CAT(x,y)
 #define _e_sem(x) x(
 #define _bsem )
-//#define _EVAL(x) _E(_e_sem _e x _bsem)
 #include "csp_gen.h"
 #define _OEVAL(car,k,...) k(EVAL((car)) OEVALY)
 #define _OEVALY(car,k,...) k(EVAL((car)) OEVAL)
@@ -46,7 +45,6 @@ If you do not want to use the code under AGPL please email me.
 #define ODESTROYY(...) _ODESTROYY( __VA_ARGS__,_DESTROY_E)
 
 #define _T(x) T
-//#define __ATOM(x)  ODESTROY x (_BOTTOM)
 #define __ATOM(x) ODESTROY x (_DESTROY_BOTTOM)
 #define RODESTROY T _n()(
 #define KATOMT(...) (T)
@@ -65,14 +63,9 @@ If you do not want to use the code under AGPL please email me.
 #define QUOTE
 #define CADR(x) _e(CAR CDR(x))
 #define CAAR(x) _e(CAR CAR(x))
-//#define CADDR(x) _EVAL (((CAR) _EVAL (((CDR)_EVAL (((CDR)( x )))))))
 #define INTERNAL_EVAL(x) _E(_e _e x)
 #define CADDR(x) INTERNAL_EVAL (((CAR) INTERNAL_EVAL (((CDR)INTERNAL_EVAL (((CDR)( x )))))))
-//CDR((x)(y)(z))
-//CAR((y)(z))
-//CADDR((x)(y)(z))
 #define _EVAL(x) _E(_e _e x)
-//#define _EVAL(x)
 #define test(x) _EVAL (((CAR)(x)))
 #define EXP ((CDR)((x)(y)(z)))
 #define COND_eCOND(x) _CONDY
@@ -88,14 +81,12 @@ If you do not want to use the code under AGPL please email me.
 #define TCONDY(x) (x) COND_EAT
 #define _COND(x) CAT(COND,CAT(INTERNAL_EVAL(SAFE_CAR(x)),COND)CADR(x))
 #define _CONDY(x) CAT(COND,CAT(INTERNAL_EVAL(SAFE_CAR(x)),CONDY)CADR(x))
-//#define COND(x) CAT _n()(_COND  x,_END)
 #define COND(x) CAT(_COND  x,_END)
 
 #define _n2() _n
 #define T_endeatnCOND_EAT_FIRST_endT )(T) _n2(
 #define NULL(x) _e(_n _n()(CAT(ISAFE_CAT(T,_e(x)),T)))()
 
-//#define NULL(x) CAT(ISAFE_CAT(T,_e(x)),T)
 #define COND_EAT_FIRST(x) COND_EATY
 #define COND_EATY_FIRST(x) COND_EAT
 
@@ -111,7 +102,6 @@ If you do not want to use the code under AGPL please email me.
 #define bnot_sig T
 #define NOT(a) (CAT(b,CAT(not_sig,a)))
 
-//@export NOT((T))=>() NOT(()) =>(T)
 #define $not(a) NOT a
 #define _AND(a) INTERNAL_EVAL((COND((NOT(a)(COND_EAT))((T)(_AND_Y)))))
 #define _AND_Y(a) INTERNAL_EVAL((COND((NOT(a)(COND_EAT))((T)(_AND)))))
@@ -121,7 +111,6 @@ If you do not want to use the code under AGPL please email me.
 #define andtrans_AND_Y (T)
 #define andtrans_AND (T)
 
-//@export AND((a)(b)(c)...) = (a)&&(b)&&(c) ...
 #define $and(a) CAT(andtrans,_AND a)
 
 #define CONS(x) ((x) _CONS
@@ -129,7 +118,6 @@ If you do not want to use the code under AGPL please email me.
 #define $cons(x) CONS x
 #define $append(x) APPEND x
 
-//$and((T)(T)(T)(T)(T))
 
 #define _be(y) y)
 #define ZIP(x)   _n() (x,_be
@@ -137,7 +125,6 @@ If you do not want to use the code under AGPL please email me.
 #define _PAIR(x,y) _e( __PAIR(x,y))
 #define __PAIR(x,y) _E COND((NULL SAFE_CDR(x)((SAFE_CAR(x) SAFE_CAR(y))))((T)((SAFE_CAR (x) SAFE_CAR (y)) _e(_PAIR2(_e SAFE_CDR(x),_e SAFE_CDR(y))))))
 
-//#define _PAIR3(x,y)  _E(NULL CDR(x))
 #define _PAIR2(x,y)  _E COND((NULL SAFE_CDR(x)((SAFE_CAR(x) SAFE_CAR(y))))((T)((SAFE_CAR (x) SAFE_CAR (y)) _e(_PAIR3(_e SAFE_CDR(x),_e SAFE_CDR(y))))))
 
 #define _PAIR3(x,y)  _E COND((NULL SAFE_CDR(x)((SAFE_CAR(x) SAFE_CAR(y))))((T)((SAFE_CAR (x) SAFE_CAR (y)) _e(_PAIR4(_e SAFE_CDR(x),_e SAFE_CDR(y))))))
@@ -155,8 +142,6 @@ If you do not want to use the code under AGPL please email me.
 #define PAIR_EVAL_E(...) __VA_ARGS__
 #define $pair(x) PAIR_EVAL(_$pair(x))
 #define EVAL_e(x) x
-//_PAIR((x)(y)(z),(a)(b)(c))
-//$pair((($pair _n()(((x)(y))((z)(w))))(y)(z)(j))((a)(b)(c)(d))))
 #define SAFE_CAR_N(x) (())_n
 #define SAFE_CAR_EAT_CAR )SAFE_CAR_N((
 #define SAFE_CAR_EAT_CDR )SAFE_CAR_N((
@@ -169,9 +154,6 @@ If you do not want to use the code under AGPL please email me.
 
 #define _SAFE_CDR(a)  _e(_n _n()(CAT(SAFE_CAR_EAT,_E(_e CDR(CAT(COND_EAT_FIRST a,_SCEND)))))(CDR(a)))
 #define SAFE_CDR(a) _E(_e _SAFE_CDR(a))
-//_n _n()(CAT(SAFE_CAR_EAT,_E(_e CAR((a)))))
-        //EVAL_e($pair(((x)(y)(z)(j)(1)(6)(8)(2))((a)(b)(c)(d)(2)(7)(7)(6))))
-//$pair(((x)(y)(k))((j)(z)((w)(r))))
 #define EQ_T(...) T
 #define EQ_be(y) CAT(eatn,ODESTROY y))
 #define eatnODESTROY
@@ -191,7 +173,6 @@ If you do not want to use the code under AGPL please email me.
 #define EQquotequote )EQ_T(
 
 #define $zipped_eval_R() $zipped_eval
-// (ATOM e (EVAL_e $assoc (e,a)))
 #define $zipped_eval(e,a) COND(\
         (ATOM e (EVAL_e $zipped_assoc(e,a)))    \
         (ATOM SAFE_CAR e \
@@ -256,7 +237,6 @@ If you do not want to use the code under AGPL please email me.
 #define T_sig(x,y) y ODESTROY
 #define __ASSOC(x,y,k,...) k(CAT _n()(ASSOC_eatn,CAT _n()(_ASSOC_n _n()(CAT(EQ,CAT(x ,_e y))),_sig))((x),EVAL_e(SAFE_CAR SAFE_CDR(y))))
 #define _ASSOC(x) __ASSOC _ASSOC_ZIP (x)
-                //                EVAL_e(_ASSOC(car)((car)(fuck)))
 #define _ASSOC_EVAL_E(...) __VA_ARGS__
 #define _ASSOC_EVAL_5(...) _ASSOC_EVAL_E(_ASSOC_EVAL_E(_ASSOC_EVAL_E(__VA_ARGS__)))
 #define _ASSOC_EVAL_4(...) _ASSOC_EVAL_5(_ASSOC_EVAL_5(_ASSOC_EVAL_5(__VA_ARGS__)))
@@ -265,60 +245,11 @@ If you do not want to use the code under AGPL please email me.
 #define _ASSOC_EVAL(...) _ASSOC_EVAL_2(_ASSOC_EVAL_2(_ASSOC_EVAL_2(__VA_ARGS__)))
 #define _$zipped_assoc(e,a) _ASSOC_EVAL(_ASSOC e  a (_ASSOC_B))
 #define $zipped_assoc(e,a) _$zipped_assoc(EAT_NOT_ATOM(e), a)
-
-//$eval_E($eval_E($eval_E($eval_E($eval_E(_EVLIS (a)(b)(c)(_EVLIS_B))))))
-//$zipped_evlis(((quote)(x))((quote)(y))((quote)(z)),())
-//$zipped_evlis((), ())
-/*
-$zeval(((atom)((quote)(a))),(a))
-$zeval(((eq)((quote)(car))((quote)(car))),(a))
-$zeval(((eq)((quote)(car))((quote)(carf))),(a))
-$zeval(((cons)((quote)(a))((quote)((a)(b)))),())
-*/
-        //        $zeval(((lambda)((x))((cons)(x)((quote)((b))))((quote)(a))),())
-// EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(a)))))
-        //$zipped_evlis((_e _e CDR (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(a)))),())
-//$zipped_evlis(EVAL_e(_e EVAL_e(CDR e)), a)
-/*
-EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))),
-EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
-
-APPEND((x)(w))((a))
-*/
-
-/*
-#define _$assoc_R() _$assoc
-#define $assoc_R() $assoc
-#define _$assoc(e,a) COND(($eq(e EVAL_e(SAFE_CAR SAFE_CAR a))(EVAL_e EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR a))))((T)(EVAL_e DELAY_INT_12(_$assoc_R)()(e,SAFE_CDR a))))
-#define $assoc(e,a) $eval_expand(_$assoc(e,a))*/
-//$zeval((cdr),(((car)(test1))((cdr)(test2))))
-        //$assoc((cdr),(((car)(fuck))((cdr)(dfuck))))
-        //EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e))))
-        //$zeval(test_e,test_a)
-        //$zipped_assoc((x), (x)(x))
-                //$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
-                //EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
-                //($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)
 #define _ENA_e(x) ODESTROY x
 #define ENA_ODESTROY
 #define ENA_ODESTROYY
 #define EAT_NOT_ATOM(x) (CAT(ENA_,_ENA_e x))
-        //$zeval(((cons)((quote)(x))((quote)((b))) ),())
-        //$zeval(((cons)((quote)(a))((quote)((b)))),())
-                   //$zipped_evlis((), ())
-                   //$zeval(test_e,test_a)
-                   //$zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)
 #define LAMBDA_E(...) __VA_ARGS__
-                   //                   $zeval(test_e, test_a)
-                   //$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
-                   /*$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
-        $zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))*/
-        //      EVAL_e(_e EVAL_e(CDR test_e))
-                //$zeval(((cons)(x)((quote)((w)))), ())
-                 //$eq(SAFE_CAR SAFE_CAR ((cons)(x)((quote)((w)))) (lambda))
-               //       $zeval((car),(((car)(fuck))))
-        //$zipped_evlis(((quote)(w)), ())
-        //$zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)),test_a)
 #define EQxx )EQ_T(
 #define EQyy )EQ_T(
 #define EQff )EQ_T(
@@ -326,6 +257,3 @@ APPEND((x)(w))((a))
 #define EQbb )EQ_T(
 #define EQcc )EQ_T(
 #define EQTT )EQ_T(
-#define test_e (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w)))
-#define test_a ()
-                   $zeval((( (lambda) ((f)) ((f) ((quote) ((b) (c)))))((quote) ( (lambda) ((x)) ((cons) ((quote)(a)) (x))))),())
