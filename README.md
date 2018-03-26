@@ -5,6 +5,7 @@ Core interpreter
 - STEP 1: Implement interpreter A which supports F-function operations
 - STEP 2: Implement interpreter B on A which supports the 9 LISP primitives
 - STEP 3: Provide access to some built-in common funtions.
+
 Application framework (not started yes)
 - Provide C code manipulating routines.
 - Framework for writing C programs in LISP. The C preprocessor serves as a translator.
