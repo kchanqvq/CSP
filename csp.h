@@ -201,8 +201,9 @@ If you do not want to use the code under AGPL please email me.
               ($eq(SAFE_CAR e (car)) (EVAL_e SAFE_CAR DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
               ($eq(SAFE_CAR e (cdr)) (EVAL_e SAFE_CDR DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
               ($eq(SAFE_CAR e (cons)) (EVAL_e CONS DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a) DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR SAFE_CDR e,a))) \
-                 )                                      \
-                )                                       \
+              ((T)(EVAL_e DELAY_INT_23($zipped_eval_R)()(($zipped_assoc(SAFE_CAR e,a) EVAL_e SAFE_CDR e),a))) \
+                 )                                                      \
+                )                                                       \
         ($eq(SAFE_CAR SAFE_CAR e (label)) (EVAL_e DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a))) \
         ($eq(SAFE_CAR SAFE_CAR e (lambda))\
         (DELAY_INT_26(EVAL_e_R)() DELAY_INT_23($zipped_eval_R)()(\
@@ -275,8 +276,6 @@ $zeval(((eq)((quote)(car))((quote)(carf))),(a))
 $zeval(((cons)((quote)(a))((quote)((a)(b)))),())
 */
         //        $zeval(((lambda)((x))((cons)(x)((quote)((b))))((quote)(a))),())
-        #define test_e (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w)))
-#define test_a ()
 // EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(a)))))
         //$zipped_evlis((_e _e CDR (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(a)))),())
 //$zipped_evlis(EVAL_e(_e EVAL_e(CDR e)), a)
@@ -296,7 +295,6 @@ APPEND((x)(w))((a))
         //$assoc((cdr),(((car)(fuck))((cdr)(dfuck))))
         //EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e))))
         //$zeval(test_e,test_a)
-#define EQxx )EQ_T(
         //$zipped_assoc((x), (x)(x))
                 //$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
                 //EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a)
@@ -311,7 +309,7 @@ APPEND((x)(w))((a))
                    //$zeval(test_e,test_a)
                    //$zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)
 #define LAMBDA_E(...) __VA_ARGS__
-                   $zeval(test_e, test_a)
+                   //                   $zeval(test_e, test_a)
                    //$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
                    /*$zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))
         $zeval(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR test_e)))), EVAL_e(APPEND $pair(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR test_e)))($zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)), test_a)))test_a))*/
@@ -321,3 +319,12 @@ APPEND((x)(w))((a))
                //       $zeval((car),(((car)(fuck))))
         //$zipped_evlis(((quote)(w)), ())
         //$zipped_evlis(EVAL_e(_e EVAL_e(CDR test_e)),test_a)
+#define EQxx )EQ_T(
+#define EQyy )EQ_T(
+#define EQff )EQ_T(
+#define EQaa )EQ_T(
+#define EQbb )EQ_T(
+#define EQcc )EQ_T(
+#define test_e (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w)))
+#define test_a ()
+                   $eval_expand($zipped_eval((( (lambda) ((f)) ((f) ((quote) ((b) (c)))))((quote) ( (lambda) ((x)) ((cons) ((quote)(a)) (x))))),()))
