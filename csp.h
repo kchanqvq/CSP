@@ -325,6 +325,7 @@ APPEND((x)(w))((a))
 #define EQaa )EQ_T(
 #define EQbb )EQ_T(
 #define EQcc )EQ_T(
+#define EQTT )EQ_T(
 #define test_e (((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w)))
 #define test_a ()
                    $zeval((( (lambda) ((f)) ((f) ((quote) ((b) (c)))))((quote) ( (lambda) ((x)) ((cons) ((quote)(a)) (x))))),())

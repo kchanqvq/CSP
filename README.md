@@ -30,7 +30,7 @@ $zeval(( (cons) ((quote)(a)) ((quote) ((a) (b)))),())//Expands to ((a) (a) (b))
 $zeval((((lambda)((x))((cons)(x)((quote)((b)))))((quote)(w))),())//Expands to ((w)(b))
 $zeval((( (lambda) ((f)) ((f) ((quote) ((b) (c)))))((quote) ( (lambda) ((x)) ((cons) ((quote)(a)) (x))))),())//Expands to ((a)(b)(c))
 ```
-Note that you have to define some comparing macro for any atom you used. (car) (cdr) (cons) (cond) (eq) (atom) (lambda) (quote) (x) (y) (f) (a) (b) (c) are predefined.
+Note that you have to define some comparing macro for any atom you used. (car) (cdr) (cons) (cond) (eq) (atom) (lambda) (quote) (x) (y) (f) (a) (b) (c) (T) are predefined.
 To make your atom comparable you need to define the following macro:
 ```C
 #define EQmyatommyatom )EQ_T( //making (myatom) comparable
