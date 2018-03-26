@@ -204,7 +204,12 @@ If you do not want to use the code under AGPL please email me.
                  )                                      \
                 )                                       \
         ($eq(SAFE_CAR SAFE_CAR e (label)) (EVAL_e DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a))) \
-        ($eq(SAFE_CAR SAFE_CAR e (lambda))(DELAY_INT_26(EVAL_e_R)() DELAY_INT_23($zipped_eval_R)()(EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e)))), EVAL_e(APPEND DELAY_INT_13($pair_R)()(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR e)))(DELAY_INT_19($zipped_evlis_R)()(EVAL_e(_e EVAL_e(SAFE_CDR e)), a)))a)))) \
+        ($eq(SAFE_CAR SAFE_CAR e (lambda))\
+        (DELAY_INT_26(EVAL_e_R)() DELAY_INT_23($zipped_eval_R)()(\
+        EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e)))),\
+        EVAL_e(APPEND DELAY_INT_13($pair_R)()(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR e)))\
+                                              (DELAY_INT_19($zipped_evlis_R)()(EVAL_e(_e EVAL_e(SAFE_CDR e)), a)))a)))\
+        )                                                               \
 )
 #define $pair_R() $pair
 #define EVAL_e_R() EVAL_e
