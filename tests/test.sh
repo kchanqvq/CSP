@@ -15,7 +15,7 @@ do
     IFS="$OLD_IFS"
     if [[ ${fnarr[1]} = "h" ]];
     then
-        test_files+=${fnarr[0]}
+        test_files+=("${fnarr[0]}")
     fi
 done
 if [[ ${#test_files[@]} = 1 ]];
