@@ -1,6 +1,6 @@
 # C Super Preprocessing
 This is the development repo of C Super Preprocessing project.
-CSP is a LISP dialect completed implemented using C macro, which provides LISP compile-time meta programming ability on C preprocessors.
+CSP is a LISP dialect completely implemented using C macro, which provides LISP compile-time meta programming ability on C preprocessors.
 ## Plan
 Core interpreter
 - STEP 1: Implement interpreter A which supports F-function operations
