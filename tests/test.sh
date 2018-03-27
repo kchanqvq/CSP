@@ -5,6 +5,11 @@
 #      Author: BlueFlo0d     #
 #Email:hongqiantan@pku.edu.cn#
 ##############################
+if [[ `hash ack` != "" ]];
+then
+    echo "Seems that ack is not installed, exiting."
+    exit 127
+fi
 declare -a test_files
 echo "Scanning test cases."
 for fn in `ls`;
@@ -30,12 +35,12 @@ failcount=0
 for (( i=0;i<test_files_count;i++))
 do
     fn=${test_files[i]}
-    echo "Testing $fn (${i+1}/$test_files_count)..."
+    echo "Testing $fn ($((i+1))/$test_files_count)..."
     result=`cc -E $fn.h`
-    result=`echo $result|sed 's/[ \t]*//g'`
+    result=`echo $result|sed 's/ //g'`
     target=`cat $fn.txt`
-    target=`echo $target|sed 's/[ \t]*//g'`
-    if [[ "$result" =~ "$target" ]];
+    target=`echo $target|sed 's/ //g'`
+    if [[ `echo $result|ack -f 'target'` != "" ]];
     then
         ((okcount++))
         echo 'Test OK!'

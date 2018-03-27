@@ -225,12 +225,14 @@ If you do not want to use the code under AGPL please email me.
 #define _ASSOC_B _ASSOC_E (_ASSOC_N,_ASSOC_E(_ASSOC_N,_ASSOC_N))
 #define _ASSOC_n(...) _n
 #define ASSOC_eatn_n
-#define ASSOC_eatn_n_sig(x,y) DELAY_REF(_ASSOC_R)() x
+#define ASSOC_eatn_n_sig(x,y) DELAY_REF(_ASSOC) x
 #define T_sig(x,y) y ODESTROY
 #define __ASSOC(x,y,k,...) k(CAT _n()(ASSOC_eatn,CAT _n()(_ASSOC_n _n()(CAT(EQ,CAT(x ,_e y))),_sig))((x),EVAL_e(SAFE_CAR SAFE_CDR(y))))
+
 #define _ASSOC(x) __ASSOC _ASSOC_ZIP (x)
 #define _ASSOC_EVAL_E(...) __VA_ARGS__
-#define _ASSOC_EVAL_5(...) _ASSOC_EVAL_E(_ASSOC_EVAL_E(_ASSOC_EVAL_E(__VA_ARGS__)))
+#define _ASSOC_EVAL_6(...) _ASSOC_EVAL_E(_ASSOC_EVAL_E(_ASSOC_EVAL_E(__VA_ARGS__)))
+#define _ASSOC_EVAL_5(...) _ASSOC_EVAL_6(_ASSOC_EVAL_6(_ASSOC_EVAL_6(__VA_ARGS__)))
 #define _ASSOC_EVAL_4(...) _ASSOC_EVAL_5(_ASSOC_EVAL_5(_ASSOC_EVAL_5(__VA_ARGS__)))
 #define _ASSOC_EVAL_3(...) _ASSOC_EVAL_4(_ASSOC_EVAL_4(_ASSOC_EVAL_4(__VA_ARGS__)))
 #define _ASSOC_EVAL_2(...) _ASSOC_EVAL_3(_ASSOC_EVAL_3(_ASSOC_EVAL_3(__VA_ARGS__)))
