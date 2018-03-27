@@ -29,12 +29,6 @@ If you do not want to use the code under AGPL please email me.
 #define _e_sem(x) x(
 #define _bsem )
 #include "csp_gen.h"
-#define _OEVAL(car,k,...) k(EVAL((car)) OEVALY)
-#define _OEVALY(car,k,...) k(EVAL((car)) OEVAL)
-#define OEVAL(car,...) _OEVAL(car __VA_ARGS__,_E)
-#define OEVALY(car,...) _OEVALY(car __VA_ARGS__,_E)
-#define _BOTTOM _E(_N,_N)
-#define FOEVAL(x) OEVAL x (_BOTTOM)
 
 #define _DESTROY_E(...) __VA_ARGS__
 #define _DESTROY_N(...)
@@ -149,8 +143,6 @@ If you do not want to use the code under AGPL please email me.
 #define COND_EAT_SCEND (a)
 #define _SAFE_CAR(a)  _e(_n _n()(CAT(SAFE_CAR_EAT,_E(_e CAR(CAT(COND_EAT_FIRST a,_SCEND)))))(CAR(a)))
 #define SAFE_CAR(a) _E(_e _SAFE_CAR(a))
-#define _SAFE_CADR(a)  _e(_n _n()(CAT(SAFE_CAR_EAT,_E(_e CADR(CAT(COND_EAT_FIRST a,_SCEND)))))(CADR(a)))
-#define SAFE_CADR(a) _E(_e _SAFE_CADR(a))
 
 #define _SAFE_CDR(a)  _e(_n _n()(CAT(SAFE_CAR_EAT,_E(_e CDR(CAT(COND_EAT_FIRST a,_SCEND)))))(CDR(a)))
 #define SAFE_CDR(a) _E(_e _SAFE_CDR(a))
