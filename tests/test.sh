@@ -1,4 +1,10 @@
 #!/bin/bash
+##############################
+#  Released under AGPL v2.0  #
+#       CSP test script      #
+#      Author: BlueFlo0d     #
+#Email:hongqiantan@pku.edu.cn#
+##############################
 declare -a test_files
 echo "Scanning test cases."
 for fn in `ls`;
@@ -28,6 +34,7 @@ do
     result=`cc -E $fn.h`
     result=`echo $result|sed 's/[ \t]*//g'`
     target=`cat $fn.txt`
+    target=`echo $target|sed 's/[ \t]*//g'`
     if [[ "$result" =~ "$target" ]];
     then
         ((okcount++))
