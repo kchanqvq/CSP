@@ -1,6 +1,14 @@
 # C Super Preprocessing
 This is the development repo of C Super Preprocessing project.
+
 CSP is a LISP dialect completely implemented using C macro, which provides LISP compile-time meta programming ability on C preprocessors.
+
+The code is full of hacks like logic riddles, to make it easiers for users to join in the development of this project I'm writing wiki pages about the implementation details. [Here's the link.](https://github.com/BlueFlo0d/CSP/wiki/Implementation-details) Some of my original studies are marked. Please do not publish or transfer the articles without permission.
+
+Welcome to join me! 
+
+_(should I use plural pronoun? 23333 I hope I can use 'us' soon)_
+
 ## Plan
 Core interpreter
 - STEP 1: Implement interpreter A which supports F-function operations
@@ -51,6 +59,16 @@ TODO: EVCON
 Supports atom quote eq car cdr cons lambda
 
 IT SUPPORTS LAMBDA!
+## Run the tests
+
+```bash
+$ cd tests
+$ ./test.sh
+```
+ack command is required to run the tests. some dev-* tests may fail.
+
+In fact dev-cond is failing... I found implementing `evcon.` function really hard...
+
 ## Note
 It is proved that being SAFE is very important for primitive macros being used in CSP.
 Since there seems to be no way to implement short-circuit condition on C preprocessor, any primitive macro should not cause error or break the bracket balance when accepting illegal list. Otherwise, it will spoil the main eval condition and cause fail of the whole process.
