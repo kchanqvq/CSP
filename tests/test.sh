@@ -5,9 +5,12 @@
 #      Author: BlueFlo0d     #
 #Email:hongqiantan@pku.edu.cn#
 ##############################
-if [[ `hash ack` != "" ]];
+if hash ack 2>/dev/null;
 then
-    echo "Seems that ack is not installed, exiting."
+    echo Required tool found: ack
+else
+    echo Required tool not found: ack
+    echo Exiting
     exit 127
 fi
 declare -a test_files
@@ -38,9 +41,11 @@ do
     echo "Testing $fn ($((i+1))/$test_files_count)..."
     result=`cc -E $fn.h`
     result=`echo $result|sed 's/ //g'`
-    target=`cat $fn.txt`
-    target=`echo $target|sed 's/ //g'`
-    if [[ `echo $result|ack -f 'target'` != "" ]];
+    rtarget=`cat $fn.txt`
+    target=`echo $rtarget|sed 's/ //g'`
+    target="${target//(/\\(}"
+    target="${target//)/\\)}"
+    if [[ `echo $result|ack $target[^\)]*$` != "" ]];
     then
         ((okcount++))
         echo 'Test OK!'
@@ -48,7 +53,7 @@ do
         ((failcount++))
         echo 'Test failed!'
         echo 'Expected:'
-        echo $target
+        echo $rtarget
         echo 'Got:'
         echo $result
     fi
