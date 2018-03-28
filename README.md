@@ -56,11 +56,12 @@ $ cc -E mycsp.h
 Enjoy yourself!
 ## Current Progress
 - Interpreter A almost done.
-Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL AND NOT ASSOC EVLIS
-TODO: EVCON
+Supports CAR CDR CONS APPEND LIST SAFE_CAR SAFE_CDR EQ ATOM QUOTE COND PAIR NULL AND NOT ASSOC EVLIS EVCON
 
 - Interpreter B (The main eval recursion)
-Supports atom quote eq car cdr cons lambda
+Supports atom quote eq car cdr cons lambda cond
+
+**NOTE** cond is not short-circuited. There may be better solution.
 
 IT SUPPORTS LAMBDA!
 ## Run the tests
@@ -69,9 +70,7 @@ IT SUPPORTS LAMBDA!
 $ cd tests
 $ ./test.sh
 ```
-ack command is required to run the tests. some dev-* tests may fail.
-
-In fact dev-cond is failing... I found implementing `evcon.` function really hard...
+ack command is required to run the tests.
 
 ## Note
 It is proved that being SAFE is very important for primitive macros being used in CSP.
