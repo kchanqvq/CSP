@@ -3,7 +3,11 @@ This is the development repo of C Super Preprocessing project.
 
 CSP is a LISP dialect completely implemented using C macro, which provides LISP compile-time meta programming ability on C preprocessors.
 
-The code is full of hacks like logic riddles, to make it easiers for users to join in the development of this project I'm writing wiki pages about the implementation details. [Here's the link.](https://github.com/BlueFlo0d/CSP/wiki/Implementation-details) Some of my original studies are marked. Please do not publish or transfer the articles without permission.
+The code is full of hacks like logic riddles, to make it easier for users to join in the development of this project I'm writing wiki pages about the implementation details. 
+
+[Here's the link.](https://github.com/BlueFlo0d/CSP/wiki/Implementation-details) 
+
+Some of my original studies are marked. Please do not publish or transfer the articles without permission.
 
 Welcome to join me! 
 
