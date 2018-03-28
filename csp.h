@@ -226,8 +226,8 @@ If you do not want to use the code under AGPL please email me.
 #define _EVCON_N(...)
 #define _EVCON_B _EVCON_E (_EVCON_N,_EVCON_E(_EVCON_N,_EVCON_N))
 #define _EVCON_sig(x)
-#define _EVCON_sigT(x) (x)
-#define ___EVCON(a,b,k,...) k( CAT _n()(_EVCON_sig,_e _EVCON_EEVAL($zipped_eval((SAFE_CAR b),(a)))) $zipped_eval(SAFE_CAR SAFE_CDR (b),(a)) DELAY_INT_2(_EVCON_R)()(a))
+#define _EVCON_sigT(x) (x) _n
+#define ___EVCON(a,b,k,...) k( CAT _n()(_EVCON_sig,_e _EVCON_EEVAL($zipped_eval((_e SAFE_CAR (b)),(a)))) $zipped_eval(SAFE_CAR SAFE_CDR (b),(a)) DELAY_INT_2(_EVCON_R)()(a))
 #define __EVCON(a,b,...) ___EVCON(a,b,__VA_ARGS__ _EVCON_E)
 #define _EVCON_EVAL_E(...) __VA_ARGS__
 #define _EVCON_EVAL_5(...) _EVCON_EVAL_E(_EVCON_EVAL_E(_EVCON_EVAL_E(__VA_ARGS__)))
@@ -243,8 +243,13 @@ If you do not want to use the code under AGPL please email me.
 #define _EVCON_EEVAL(...) _EVCON_EEVAL_2(_EVCON_EEVAL_2(_EVCON_EEVAL_2(__VA_ARGS__)))
 
 #define _EVCON(x) __EVCON _EVCON_ZIP(x)
-#define $zipped_evcon(x,y) _EVCON_EVAL(_EVCON y x (_EVCON_B))
+#define _n_evcon_end()
+#define _n_evcon_end()
+#define _evcon_end()
+#define $zipped_evcon(x,y) CAT(_EVCON_EVAL(_EVCON y x (_EVCON_B)),_evcon_end)()
 #define $zipped_evcon_R() $zipped_evcon
+
+
 #define ASSOC_e_R() EVLIS_e
 #define ASSOC_e(x) x
 #define _ASSOC_ZIP(...) _n() (__VA_ARGS__,_ASSOC_BE
