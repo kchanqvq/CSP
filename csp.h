@@ -169,7 +169,7 @@ If you do not want to use the code under AGPL please email me.
         (ATOM e (EVAL_e $zipped_assoc(e,a)))    \
         (ATOM SAFE_CAR e \
          COND(($eq(SAFE_CAR e (quote))EVAL_e(SAFE_CAR SAFE_CDR e))  \
-              ($eq(SAFE_CAR e (atom)) (EVAL_e ATOM DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
+              ($eq(SAFE_CAR e (atom)) (EVAL_e ATOM DELAY_INT_23($zipped_eval_R)() (EVAL_e(SAFE_CAR SAFE_CDR e),a))) \
               ($eq(SAFE_CAR e (eq)) (EVAL_e $eq( DELAY_INT_25($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a) DELAY_INT_25($zipped_eval_R)() (SAFE_CAR SAFE_CDR SAFE_CDR e,a)))) \
               ($eq(SAFE_CAR e (car)) (EVAL_e SAFE_CAR DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
               ($eq(SAFE_CAR e (cdr)) (EVAL_e SAFE_CDR DELAY_INT_23($zipped_eval_R)() (SAFE_CAR SAFE_CDR e,a))) \
@@ -178,12 +178,12 @@ If you do not want to use the code under AGPL please email me.
               ((T)(EVAL_e DELAY_INT_23($zipped_eval_R)()(($zipped_assoc(SAFE_CAR e,a) EVAL_e SAFE_CDR e),a))) \
                  )                                                      \
                 )                                                       \
-        ($eq(SAFE_CAR SAFE_CAR e (label)) (EVAL_e DELAY_INT_23($zipped_eval_R)() (CONS SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e SAFE_CDR e,CONS (SAFE_CAR SAFE_CDR SAFE_CAR e SAFE_CAR e) a))) \
+        ($eq(SAFE_CAR SAFE_CAR e (label)) (EVAL_e DELAY_INT_23($zipped_eval_R)() (EVAL_e(CONS EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e)))) EVAL_e( SAFE_CDR e)),EVAL_e(_e CONS (EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR e)) SAFE_CAR e) (a))))) \
         ($eq(SAFE_CAR SAFE_CAR e (lambda))\
         (DELAY_INT_26(EVAL_e_R)() DELAY_INT_23($zipped_eval_R)()(\
         EVAL_e(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CDR SAFE_CAR e)))),\
-        EVAL_e(APPEND DELAY_INT_13($pair_R)()(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR e)))\
-                                              (DELAY_INT_19($zipped_evlis_R)()(EVAL_e(_e EVAL_e(SAFE_CDR e)), a)))a)))\
+        EVAL_e( DELAY_INT_13($pair_R)()(EVAL_e(EVAL_e(EVAL_e(SAFE_CAR SAFE_CDR SAFE_CAR e))) \
+                                              (DELAY_INT_19($zipped_evlis_R)()(EVAL_e(_e EVAL_e(SAFE_CDR e)), (a)))) a))) \
         )                                                               \
 )
 #define $pair_R() $pair
@@ -205,7 +205,7 @@ If you do not want to use the code under AGPL please email me.
 #define _EVLIS_E(...) __VA_ARGS__
 #define _EVLIS_N(...)
 #define _EVLIS_B _EVLIS_E (_EVLIS_N,_EVLIS_E(_EVLIS_N,_EVLIS_N))
-#define ___EVLIS(a,b,k,...) k($zipped_eval((b),(a)) DELAY_INT_2(_EVLIS_R)()(a))
+#define ___EVLIS(a,b,k,...) k($zipped_eval((b),a) DELAY_INT_2(_EVLIS_R)()(a))
 #define __EVLIS(a,b,...) ___EVLIS(a,b,__VA_ARGS__ _EVLIS_E)
 #define _EVLIS_EVAL_E(...) __VA_ARGS__
 #define _EVLIS_EVAL_5(...) _EVLIS_EVAL_E(_EVLIS_EVAL_E(_EVLIS_EVAL_E(__VA_ARGS__)))
@@ -256,12 +256,12 @@ If you do not want to use the code under AGPL please email me.
 #define _ASSOC_BE(...) __VA_ARGS__,_E)
 #define _ASSOC_R() _ASSOC
 #define _ASSOC_E(...) __VA_ARGS__
-#define _ASSOC_N(...)
+#define _ASSOC_N(...) ()
 #define _ASSOC_B _ASSOC_E (_ASSOC_N,_ASSOC_E(_ASSOC_N,_ASSOC_N))
 #define _ASSOC_n(...) _n
 #define ASSOC_eatn_n
 #define ASSOC_eatn_n_sig(x,y) DELAY_REF(_ASSOC) x
-#define T_sig(x,y) y ODESTROY
+#define T_sig(x,y) y _e ODESTROY
 #define __ASSOC(x,y,k,...) k(CAT _n()(ASSOC_eatn,CAT _n()(_ASSOC_n _n()(CAT(EQ,CAT(x ,_e y))),_sig))((x),EVAL_e(SAFE_CAR SAFE_CDR(y))))
 
 #define _ASSOC(x) __ASSOC _ASSOC_ZIP (x)
@@ -281,8 +281,11 @@ If you do not want to use the code under AGPL please email me.
 #define EAT_NOT_ATOM(x) (CAT(ENA_,_ENA_e x))
 #define EQxx )EQ_T(
 #define EQyy )EQ_T(
+#define EQzz )EQ_T(
 #define EQff )EQ_T(
 #define EQaa )EQ_T(
 #define EQbb )EQ_T(
 #define EQcc )EQ_T(
+#define EQdd )EQ_T(
+#define EQmm )EQ_T(
 #define EQTT )EQ_T(

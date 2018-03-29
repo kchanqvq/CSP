@@ -1,5 +1,7 @@
 #include "../csp.h"
 $zeval(( (atom) ((quote) (x)) ) ,())
+$zeval(( (atom) (x) ) ,())
+$zeval(( (atom) ((quote) ((x))) ) ,())
 $zeval(( (cons) ((quote)(a)) ((quote) ((a) (b)))),())
 $zeval(( (car) ((quote) ((a) (b) (c)))),())
 $zeval(( (cdr) ((quote) ((a) (b) (c)))),())
