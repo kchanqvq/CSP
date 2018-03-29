@@ -245,7 +245,7 @@ If you do not want to use the code under AGPL please email me.
 #define _EVCON(x) __EVCON _EVCON_ZIP(x)
 #define _n_evcon_end()
 #define _n_evcon_end()
-#define _evcon_end()
+#define _evcon_end() ()
 #define $zipped_evcon(x,y) CAT(_EVCON_EVAL(_EVCON y x (_EVCON_B)),_evcon_end)()
 #define $zipped_evcon_R() $zipped_evcon
 

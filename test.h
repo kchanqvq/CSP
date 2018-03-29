@@ -1,6 +1,6 @@
 #include "csp.h"
 #define EQsubstsubst )EQ_T(
-$zeval((( (label)
+/*$zeval((( (label)
          (subst)
          (
                  (lambda) ((x) (y) (z))
@@ -21,11 +21,12 @@ $zeval((( (label)
                                  )
                          )
                  )
-                ) ((quote) (m)) ((quote) (b)) ((quote) ((a) (b) ((a) (b) (c)) (d)))),())
+                 ) ((quote) (m)) ((quote) (b)) ((quote) ((a) (b) ((a) (b) (c)) (d)))),())*/
 #define test_e (((label) (f)((lambda)((x))((cons)(x)((quote)((b))))))((quote)(w)))
 $zeval(test_e,())
 $zeval(((atom)(x)),())
-ATOM $zipped_eval(EVAL_e(SAFE_CAR SAFE_CDR ((atom)((quote)(x)))),())
+$zeval(((cond)(((atom)(x))((quote)(t)))),())
+$zipped_evcon((((atom)(x))((quote)(t))),())
 /*$zeval(( (cond)(((atom)(x))((quote)(a)) )
          (((quote)(T))((quote)(b)))),())*/
 /*$zeval( (((label)
